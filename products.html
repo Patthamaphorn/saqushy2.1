@@ -131,7 +131,12 @@
 
             <!-- Empty State Message -->
             <div id="no-products-msg" class="hidden text-center py-16 bg-white rounded-2xl shadow-sm">
-                <p class="text-gray-400 text-lg font-medium">ไม่พบสินค้าที�                <!-- Item 1: iBloom Peach -->
+                <p class="text-gray-400 text-lg font-medium">ไม่พบสินค้าที่คุณค้นหา</p>
+            </div>
+
+            <!-- Product Grid -->
+            <div id="product-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!-- Item 1: iBloom Peach -->
                 <div class="product-card bg-white rounded-2xl p-4 shadow-sm hover:shadow-md transition relative group border border-gray-100"
                      data-brand="ibloom" data-price="1200" data-name="I Love Peach (Jumbo)" data-category="slow-rising scented jumbo limited" data-popularity="10">
                     <div class="absolute top-4 left-4 bg-gray-800 text-white text-xs px-2 py-1 rounded-full z-10">IBLOOM</div>
@@ -259,9 +264,6 @@
                         </div>
                     </a>
                     <button onclick="addToCart({name: 'Unicorn Donut Special', brand: 'Creamiicandy', price: 380, image: 'images/unicorn_donut.png', size: 'Standard', qty: 1})" class="absolute bottom-4 right-4 w-10 h-10 bg-brandPink text-brandDarkPink rounded-full flex items-center justify-center hover:bg-brandDarkPink hover:text-white transition shadow-sm">
-                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"></path></svg>
-                    </button>
-                </div>xt-brandDarkPink rounded-full flex items-center justify-center hover:bg-brandDarkPink hover:text-white transition shadow-sm">
                         <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"></path></svg>
                     </button>
                 </div>
