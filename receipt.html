@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ใบเสร็จรับเงิน / Receipt - สกุชชี่ Shop</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Prompt', sans-serif; background-color: #F3F4F6; color: #374151; }
+        @media print {
+            .no-print { display: none !important; }
+            body { background: white !important; }
+            .print-shadow-none { shadow: none !important; border: none !important; }
+        }
+    </style>
+</head>
+<body class="py-10 px-4">
+
+    <div class="max-w-2xl mx-auto bg-white rounded-3xl p-8 shadow-xl print-shadow-none border border-gray-100">
+        
+        <!-- Header -->
+        <div class="flex justify-between items-start border-b pb-6 mb-6">
+            <div>
+                <h1 class="text-3xl font-bold text-[#5C433B]">สกุชชี่ Boutique</h1>
+                <p class="text-xs text-gray-500 mt-1">123/45 ถนนสุขุมวิท กรุงเทพมหานคร 10110</p>
+                <p class="text-xs text-gray-500">โทร: 02-123-4567 | โทรมือถือ: 081-999-8888</p>
+                <p class="text-xs text-gray-500">เลขประจำตัวผู้เสียภาษี: 0105567890123</p>
+            </div>
+            <div class="text-right">
+                <span class="bg-green-100 text-green-700 text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider">ชำระเงินสำเร็จ</span>
+                <h2 class="text-xl font-bold text-gray-800 mt-2">ใบเสร็จรับเงิน / ใบกำกับภาษี</h2>
+                <p class="text-xs text-gray-500 mt-1">เลขที่ออเดอร์: <span id="receipt-id" class="font-semibold text-gray-700">#SQ-88992</span></p>
+                <p class="text-xs text-gray-500">วันที่: <span id="receipt-date" class="font-semibold text-gray-700">01/09/2026 10:15</span></p>
+            </div>
+        </div>
+
+        <!-- Customer Details -->
+        <div class="bg-[#FFF8F5] rounded-2xl p-4 mb-6 border border-[#FCEBE8]">
+            <h3 class="font-bold text-sm text-[#5C433B] mb-2">ข้อมูลผู้ซื้อ / ที่อยู่จัดส่ง</h3>
+            <div class="grid grid-cols-2 gap-2 text-xs text-gray-600">
+                <p><strong>ชื่อ-นามสกุล:</strong> <span id="cust-name">คุณลูกค้า</span></p>
+                <p><strong>เบอร์โทรศัพท์:</strong> <span id="cust-phone">081-234-5678</span></p>
+                <p class="col-span-2"><strong>ที่อยู่จัดส่ง:</strong> <span id="cust-address">99/9 แขวงคลองเตย เขตคลองเตย กรุงเทพฯ 10110</span></p>
+                <p><strong>วิธีชำระเงิน:</strong> <span id="cust-[#8B5A58]payment">สแกน QR Code (PromptPay)</span></p>
+                <p><strong>สถานะจัดส่ง:</strong> <span class="text-blue-600 font-semibold">กำลังเตรียมจัดส่ง (1-3 วัน)</span></p>
+            </div>
+        </div>
+
+        <!-- Items Table -->
+        <table class="w-full text-left text-xs mb-6">
+            <thead>
+                <tr class="border-b text-gray-400 font-semibold uppercase">
+                    <th class="py-2">ลำดับ</th>
+                    <th class="py-2">รายการสินค้า</th>
+                    <th class="py-2 text-center">ขนาด</th>
+                    <th class="py-2 text-center">จำนวน</th>
+                    <th class="py-2 text-right">ราคา/หน่วย</th>
+                    <th class="py-2 text-right">รวมเงิน</th>
+                </tr>
+            </thead>
+            <tbody id="receipt-items-body" class="divide-y divide-gray-100">
+                <!-- Items populated by JS -->
+            </tbody>
+        </table>
+
+        <!-- Summary -->
+        <div class="border-t pt-4 space-y-2 text-xs text-gray-600">
+            <div class="flex justify-between">
+                <span>ราคาสินค้ารวม (Subtotal)</span>
+                <span id="receipt-subtotal" class="font-semibold">฿0.00</span>
+            </div>
+            <div class="flex justify-between">
+                <span>ค่าบริการจัดส่ง (Shipping Fee)</span>
+                <span id="receipt-shipping" class="font-semibold">฿50.00</span>
+            </div>
+            <div class="flex justify-between text-green-600">
+                <span>ส่วนลดพิเศษ (Discount)</span>
+                <span id="receipt-discount" class="font-semibold">-฿100.00</span>
+            </div>
+            <div class="flex justify-between text-sm font-bold text-gray-900 border-t pt-3">
+                <span>ยอดเงินรวมสุทธิ (Grand Total)</span>
+                <span id="receipt-total" class="text-lg text-[#8B5A58]">฿0.00</span>
+            </div>
+        </div>
+
+        <!-- Thank you note -->
+        <div class="mt-8 text-center border-t border-dashed pt-6">
+            <p class="text-sm font-bold text-[#5C433B]">ขอบคุณที่อุดหนุน สกุชชี่ Boutique!</p>
+            <p class="text-xs text-gray-400 mt-1">หากมีข้อสงสัยเกี่ยวกับรายการนี้ กรุณาติดต่อฝ่ายบริการลูกค้า 02-123-4567</p>
+        </div>
+
+        <!-- Action Buttons -->
+        <div class="mt-8 flex justify-center space-x-4 no-print">
+            <button onclick="window.print()" class="bg-[#8B5A58] text-white px-6 py-2.5 rounded-full text-sm font-medium hover:bg-opacity-90 transition flex items-center">
+                <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z"></path></svg>
+                พิมพ์ใบเสร็จ (Print Receipt)
+            </button>
+            <a href="index.html" class="bg-gray-100 text-gray-700 px-6 py-2.5 rounded-full text-sm font-medium hover:bg-gray-200 transition">
+                กลับหน้าหลัก
+            </a>
+        </div>
+
+    </div>
+
+    <script>
+        window.addEventListener('DOMContentLoaded', () => {
+            const orderData = JSON.parse(sessionStorage.getItem('latest_order'));
+            
+            if (!orderData) {
+                // Mock default order if accessed directly
+                renderOrder({
+                    id: '#SQ-' + Math.floor(100000 + Math.random() * 900000),
+                    date: new Date().toLocaleString('th-TH'),
+                    name: 'คุณลูกค้า (ตัวอย่าง)',
+                    phone: '081-234-5678',
+                    address: '99/9 แขวงคลองเตย เขตคลองเตย กรุงเทพมหานคร 10110',
+                    paymentMethod: 'โอนเงินผ่าน PromptPay',
+                    items: [
+                        { name: 'Peach Squishy', brand: 'iBloom', size: 'Jumbo', qty: 1, price: 890 },
+                        { name: 'Milk Carton', brand: 'Creamiicandy', size: 'Standard', qty: 2, price: 450 }
+                    ],
+                    subtotal: 1790,
+                    shipping: 50,
+                    discount: 100,
+                    total: 1740
+                });
+            } else {
+                renderOrder(orderData);
+            }
+        });
+
+        function renderOrder(order) {
+            document.getElementById('receipt-id').innerText = order.id;
+            document.getElementById('receipt-date').innerText = order.date;
+            document.getElementById('cust-name').innerText = order.name;
+            document.getElementById('cust-phone').innerText = order.phone;
+            document.getElementById('cust-address').innerText = order.address;
+            document.getElementById('cust-[#8B5A58]payment').innerText = order.paymentMethod;
+
+            const tbody = document.getElementById('receipt-items-body');
+            tbody.innerHTML = '';
+
+            order.items.forEach((item, index) => {
+                const tr = document.createElement('tr');
+                tr.className = 'hover:bg-gray-50';
+                tr.innerHTML = `
+                    <td class="py-3 font-medium text-gray-500">${index + 1}</td>
+                    <td class="py-3">
+                        <p class="font-bold text-gray-800">${item.name}</p>
+                        <p class="text-[10px] text-gray-400">แบรนด์: ${item.brand || '-'}</p>
+                    </td>
+                    <td class="py-3 text-center text-gray-600">${item.size || 'Standard'}</td>
+                    <td class="py-3 text-center font-bold">${item.qty}</td>
+                    <td class="py-3 text-right">฿${parseFloat(item.price).toFixed(2)}</td>
+                    <td class="py-3 text-right font-bold text-gray-800">฿${(parseFloat(item.price) * item.qty).toFixed(2)}</td>
+                `;
+                tbody.appendChild(tr);
+            });
+
+            document.getElementById('receipt-subtotal').innerText = '฿' + parseFloat(order.subtotal).toFixed(2);
+            document.getElementById('receipt-shipping').innerText = '฿' + parseFloat(order.shipping).toFixed(2);
+            document.getElementById('receipt-discount').innerText = '-฿' + parseFloat(order.discount).toFixed(2);
+            document.getElementById('receipt-total').innerText = '฿' + parseFloat(order.total).toFixed(2);
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,479 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>รายการสินค้า - สกุชชี่ Shop</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Prompt', 'sans-serif'],
+                    },
+                    colors: {
+                        brandBrown: '#5C433B',
+                        brandPink: '#F1D4D1',
+                        brandDarkPink: '#8B5A58',
+                        footerBg: '#F6E2C3',
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body { font-family: 'Prompt', sans-serif; background-color: #FAFAFA; color: #5C433B; }
+        .btn-primary { background-color: #8B5A58; color: white; }
+    </style>
+</head>
+<body>
+
+    <!-- Navigation -->
+    <nav class="bg-white py-4 shadow-sm sticky top-0 z-50">
+        <div class="container mx-auto px-6 flex justify-between items-center">
+            <a href="index.html" class="text-3xl font-bold text-brandBrown">สกุชชี่</a>
+            <div class="hidden md:flex space-x-8 font-medium">
+                <a href="index.html" class="text-gray-500 hover:text-brandBrown">หน้าแรก</a>
+                <a href="ibloom.html" class="nav-brand-link text-gray-500 hover:text-brandBrown" data-brand-nav="ibloom">iBloom</a>
+                <a href="punimaru.html" class="nav-brand-link text-gray-500 hover:text-brandBrown" data-brand-nav="punimaru">Puni Maru</a>
+                <a href="creamiicandy.html" class="nav-brand-link text-gray-500 hover:text-brandBrown" data-brand-nav="creamiicandy">Creamiicandy</a>
+            </div>
+            <div class="flex space-x-4 text-gray-600 items-center">
+                <div class="relative hidden md:block">
+                    <input type="text" id="search-input" onkeyup="filterProducts()" placeholder="ค้นหาสกุชชี่..." class="pl-4 pr-10 py-2 bg-gray-100 rounded-full text-sm focus:outline-none focus:ring-2 focus:ring-brandPink w-48">
+                    <button class="absolute right-3 top-2.5"><svg class="w-4 h-4 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg></button>
+                </div>
+                <a href="cart.html" class="relative">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"></path></svg>
+                    <span class="cart-badge hidden absolute -top-2 -right-2 bg-brandDarkPink text-white text-[10px] w-5 h-5 rounded-full flex items-center justify-center font-bold">0</span>
+                </a>
+                <button onclick="alert('โปรไฟล์ผู้ใช้งาน')"><svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path></svg></button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="container mx-auto px-6 py-8 flex flex-col md:flex-row gap-8">
+        
+        <!-- Sidebar Filters -->
+        <aside class="w-full md:w-1/4">
+            <!-- Brands -->
+            <div class="mb-8 border-b pb-6">
+                <h3 class="font-bold text-lg mb-4">แบรนด์ (Brands)</h3>
+                <div class="space-y-3">
+                    <label class="flex items-center space-x-2 cursor-pointer">
+                        <input type="checkbox" id="cb-all" value="all" checked onchange="handleBrandChange(this)" class="brand-checkbox rounded text-brandDarkPink focus:ring-brandDarkPink w-4 h-4">
+                        <span>ทั้งหมด</span>
+                    </label>
+                    <label class="flex items-center space-x-2 cursor-pointer">
+                        <input type="checkbox" id="cb-ibloom" value="ibloom" onchange="handleBrandChange(this)" class="brand-checkbox rounded text-brandDarkPink focus:ring-brandDarkPink w-4 h-4">
+                        <span>iBloom</span>
+                    </label>
+                    <label class="flex items-center space-x-2 cursor-pointer">
+                        <input type="checkbox" id="cb-punimaru" value="punimaru" onchange="handleBrandChange(this)" class="brand-checkbox rounded text-brandDarkPink focus:ring-brandDarkPink w-4 h-4">
+                        <span>Puni Maru</span>
+                    </label>
+                    <label class="flex items-center space-x-2 cursor-pointer">
+                        <input type="checkbox" id="cb-creamiicandy" value="creamiicandy" onchange="handleBrandChange(this)" class="brand-checkbox rounded text-brandDarkPink focus:ring-brandDarkPink w-4 h-4">
+                        <span>Creamiicandy</span>
+                    </label>
+                </div>
+            </div>
+
+            <!-- Price -->
+            <div class="mb-8 border-b pb-6">
+                <h3 class="font-bold text-lg mb-4">ราคา (Price)</h3>
+                <input type="range" id="price-range" min="200" max="1500" value="1500" oninput="updatePriceFilter(this.value)" class="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer accent-brandDarkPink">
+                <div class="flex justify-between text-sm text-gray-500 mt-2">
+                    <span>฿200</span>
+                    <span id="price-display" class="font-semibold text-brandDarkPink">สูงสุด ฿1,500</span>
+                </div>
+            </div>
+
+            <!-- Category -->
+            <div class="mb-8 border-b pb-6">
+                <h3 class="font-bold text-lg mb-4">หมวดหมู่ (Category)</h3>
+                <div class="flex flex-wrap gap-2">
+                    <button onclick="toggleCategoryFilter(this, 'all')" class="cat-filter-btn px-3 py-1 bg-brandDarkPink text-white rounded-full text-sm transition">ทั้งหมด</button>
+                    <button onclick="toggleCategoryFilter(this, 'slow-rising')" class="cat-filter-btn px-3 py-1 bg-gray-100 text-gray-600 rounded-full text-sm hover:bg-brandPink hover:text-brandDarkPink transition">Slow Rising</button>
+                    <button onclick="toggleCategoryFilter(this, 'scented')" class="cat-filter-btn px-3 py-1 bg-gray-100 text-gray-600 rounded-full text-sm hover:bg-brandPink hover:text-brandDarkPink transition">Scented</button>
+                    <button onclick="toggleCategoryFilter(this, 'limited')" class="cat-filter-btn px-3 py-1 bg-gray-100 text-gray-600 rounded-full text-sm hover:bg-brandPink hover:text-brandDarkPink transition">Limited Edition</button>
+                    <button onclick="toggleCategoryFilter(this, 'jumbo')" class="cat-filter-btn px-3 py-1 bg-gray-100 text-gray-600 rounded-full text-sm hover:bg-brandPink hover:text-brandDarkPink transition">Jumbo Size</button>
+                </div>
+            </div>
+
+            <!-- New Collection Banner -->
+            <a href="products.html?brand=ibloom" class="bg-[#FDE2C3] p-6 rounded-2xl text-center block hover:opacity-90 transition">
+                <h4 class="font-bold text-lg mb-1">New Collection</h4>
+                <p class="text-sm mb-4">Peach Series 2024</p>
+                <span class="btn-primary px-6 py-2 rounded-full text-sm font-medium inline-block hover:opacity-90">Shop Now</span>
+            </a>
+        </aside>
+
+        <!-- Product Grid -->
+        <section class="w-full md:w-3/4">
+            <div class="flex justify-between items-center mb-6">
+                <div>
+                    <h1 id="page-title" class="text-2xl font-bold">รายการสินค้าทั้งหมด</h1>
+                    <p id="product-count-text" class="text-sm text-gray-500">แสดงสินค้า 6 รายการ</p>
+                </div>
+                <div class="flex items-center space-x-2 text-sm">
+                    <span class="text-gray-500">เรียงโดย:</span>
+                    <select id="sort-select" onchange="sortProducts()" class="bg-white border rounded-lg px-3 py-1 font-medium focus:outline-none cursor-pointer">
+                        <option value="popular">ยอดนิยม</option>
+                        <option value="low-high">ราคา: ต่ำไปสูง</option>
+                        <option value="high-low">ราคา: สูงไปต่ำ</option>
+                    </select>
+                </div>
+            </div>
+
+            <!-- Empty State Message -->
+            <div id="no-products-msg" class="hidden text-center py-16 bg-white rounded-2xl shadow-sm">
+                <p class="text-gray-400 text-lg font-medium">ไม่พบสินค้าที�                <!-- Item 1: iBloom Peach -->
+                <div class="product-card bg-white rounded-2xl p-4 shadow-sm hover:shadow-md transition relative group border border-gray-100"
+                     data-brand="ibloom" data-price="1200" data-name="I Love Peach (Jumbo)" data-category="slow-rising scented jumbo limited" data-popularity="10">
+                    <div class="absolute top-4 left-4 bg-gray-800 text-white text-xs px-2 py-1 rounded-full z-10">IBLOOM</div>
+                    <a href="product-details.html" class="block">
+                        <div class="h-48 bg-gray-50 rounded-xl mb-4 overflow-hidden flex items-center justify-center">
+                             <img src="images/peach.png" alt="Peach Squishy" class="object-cover h-full w-full group-hover:scale-105 transition duration-300">
+                        </div>
+                        <h3 class="font-bold text-lg line-clamp-1">I Love Peach (Jumbo)</h3>
+                        <p class="text-xs text-gray-500 mb-2">Slow-rising & scented</p>
+                        <div class="flex text-yellow-400 text-xs mb-2">
+                            ★★★★☆ <span class="text-gray-400 ml-1">(128)</span>
+                        </div>
+                        <div class="flex justify-between items-center mt-3">
+                            <span class="text-xl font-bold">฿1,200</span>
+                        </div>
+                    </a>
+                    <button onclick="addToCart({name: 'I Love Peach (Jumbo)', brand: 'iBloom', price: 1200, image: 'images/peach.png', size: 'Jumbo', qty: 1})" class="absolute bottom-4 right-4 w-10 h-10 bg-brandPink text-brandDarkPink rounded-full flex items-center justify-center hover:bg-brandDarkPink hover:text-white transition shadow-sm">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"></path></svg>
+                    </button>
+                </div>
+
+                <!-- Item 2: Puni Maru Bread -->
+                <div class="product-card bg-white rounded-2xl p-4 shadow-sm hover:shadow-md transition relative group border border-gray-100"
+                     data-brand="punimaru" data-price="450" data-name="Bread Doll Set" data-category="slow-rising scented" data-popularity="8">
+                    <div class="absolute top-4 left-4 bg-[#8B5A58] text-white text-xs px-2 py-1 rounded-full z-10">PUNI MARU</div>
+                    <a href="product-details.html" class="block">
+                        <div class="h-48 bg-gray-50 rounded-xl mb-4 overflow-hidden flex items-center justify-center">
+                             <img src="images/croissant.png" alt="Bread Doll Set" class="object-cover h-full w-full group-hover:scale-105 transition duration-300">
+                        </div>
+                        <h3 class="font-bold text-lg line-clamp-1">Bread Doll Set</h3>
+                        <p class="text-xs text-gray-500 mb-2">Mini soft collection</p>
+                        <div class="flex text-yellow-400 text-xs mb-2">
+                            ★★★★☆ <span class="text-gray-400 ml-1">(85)</span>
+                        </div>
+                        <div class="flex justify-between items-center mt-3">
+                            <span class="text-xl font-bold">฿450</span>
+                        </div>
+                    </a>
+                    <button onclick="addToCart({name: 'Bread Doll Set', brand: 'Puni Maru', price: 450, image: 'images/croissant.png', size: 'Mini', qty: 1})" class="absolute bottom-4 right-4 w-10 h-10 bg-brandPink text-brandDarkPink rounded-full flex items-center justify-center hover:bg-brandDarkPink hover:text-white transition shadow-sm">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"></path></svg>
+                    </button>
+                </div>
+
+                <!-- Item 3: Creamiicandy Milk -->
+                <div class="product-card bg-white rounded-2xl p-4 shadow-sm hover:shadow-md transition relative group border border-gray-100"
+                     data-brand="creamiicandy" data-price="320" data-name="Milk Carton Kawaii" data-category="scented" data-popularity="9">
+                    <div class="absolute top-4 left-4 bg-pink-700 text-white text-xs px-2 py-1 rounded-full z-10">CREAMIICANDY</div>
+                    <a href="product-details.html" class="block">
+                        <div class="h-48 bg-gray-50 rounded-xl mb-4 overflow-hidden flex items-center justify-center">
+                             <img src="images/milk_carton.png" alt="Milk Carton Kawaii" class="object-cover h-full w-full group-hover:scale-105 transition duration-300">
+                        </div>
+                        <h3 class="font-bold text-lg line-clamp-1">Milk Carton Kawaii</h3>
+                        <p class="text-xs text-gray-500 mb-2">Sweet strawberry scent</p>
+                        <div class="flex text-yellow-400 text-xs mb-2">
+                            ★★★★★ <span class="text-gray-400 ml-1">(210)</span>
+                        </div>
+                        <div class="flex justify-between items-center mt-3">
+                            <span class="text-xl font-bold">฿320</span>
+                        </div>
+                    </a>
+                    <button onclick="addToCart({name: 'Milk Carton Kawaii', brand: 'Creamiicandy', price: 320, image: 'images/milk_carton.png', size: 'Standard', qty: 1})" class="absolute bottom-4 right-4 w-10 h-10 bg-brandPink text-brandDarkPink rounded-full flex items-center justify-center hover:bg-brandDarkPink hover:text-white transition shadow-sm">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"></path></svg>
+                    </button>
+                </div>
+                
+                 <!-- Item 4: iBloom Animal Buns -->
+                <div class="product-card bg-white rounded-2xl p-4 shadow-sm hover:shadow-md transition relative group border border-gray-100"
+                     data-brand="ibloom" data-price="280" data-name="Animal Bun Series" data-category="slow-rising" data-popularity="6">
+                    <div class="absolute top-4 left-4 bg-gray-800 text-white text-xs px-2 py-1 rounded-full z-10">IBLOOM</div>
+                    <a href="product-details.html" class="block">
+                        <div class="h-48 bg-gray-50 rounded-xl mb-4 overflow-hidden flex items-center justify-center">
+                             <img src="images/animal_bun.png" alt="Animal Bun Series" class="object-cover h-full w-full group-hover:scale-105 transition duration-300">
+                        </div>
+                        <h3 class="font-bold text-lg line-clamp-1">Animal Bun Series</h3>
+                        <p class="text-xs text-gray-500 mb-2">Ultra soft & slow</p>
+                        <div class="flex text-yellow-400 text-xs mb-2">
+                            ★★★★☆ <span class="text-gray-400 ml-1">(56)</span>
+                        </div>
+                        <div class="flex justify-between items-center mt-3">
+                            <span class="text-xl font-bold">฿280</span>
+                        </div>
+                    </a>
+                    <button onclick="addToCart({name: 'Animal Bun Series', brand: 'iBloom', price: 280, image: 'images/animal_bun.png', size: 'Mini', qty: 1})" class="absolute bottom-4 right-4 w-10 h-10 bg-brandPink text-brandDarkPink rounded-full flex items-center justify-center hover:bg-brandDarkPink hover:text-white transition shadow-sm">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"></path></svg>
+                    </button>
+                </div>
+
+                <!-- Item 5: Puni Maru Bear -->
+                <div class="product-card bg-white rounded-2xl p-4 shadow-sm hover:shadow-md transition relative group border border-gray-100"
+                     data-brand="punimaru" data-price="890" data-name="Marshmallow Bear" data-category="jumbo slow-rising" data-popularity="9">
+                    <div class="absolute top-4 left-4 bg-[#8B5A58] text-white text-xs px-2 py-1 rounded-full z-10">PUNI MARU</div>
+                    <a href="product-details.html" class="block">
+                        <div class="h-48 bg-gray-50 rounded-xl mb-4 overflow-hidden flex items-center justify-center">
+                             <img src="images/marshmallow_bear.png" alt="Marshmallow Bear" class="object-cover h-full w-full group-hover:scale-105 transition duration-300">
+                        </div>
+                        <h3 class="font-bold text-lg line-clamp-1">Marshmallow Bear</h3>
+                        <p class="text-xs text-gray-500 mb-2">Giant soft toy</p>
+                        <div class="flex text-yellow-400 text-xs mb-2">
+                            ★★★★★ <span class="text-gray-400 ml-1">(167)</span>
+                        </div>
+                        <div class="flex justify-between items-center mt-3">
+                            <span class="text-xl font-bold">฿890</span>
+                        </div>
+                    </a>
+                    <button onclick="addToCart({name: 'Marshmallow Bear', brand: 'Puni Maru', price: 890, image: 'images/marshmallow_bear.png', size: 'Jumbo', qty: 1})" class="absolute bottom-4 right-4 w-10 h-10 bg-brandPink text-brandDarkPink rounded-full flex items-center justify-center hover:bg-brandDarkPink hover:text-white transition shadow-sm">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"></path></svg>
+                    </button>
+                </div>
+
+                <!-- Item 6: Creamiicandy Unicorn -->
+                <div class="product-card bg-white rounded-2xl p-4 shadow-sm hover:shadow-md transition relative group border border-gray-100"
+                     data-brand="creamiicandy" data-price="380" data-name="Unicorn Donut Special" data-category="scented limited" data-popularity="7">
+                    <div class="absolute top-4 left-4 bg-pink-700 text-white text-xs px-2 py-1 rounded-full z-10">CREAMIICANDY</div>
+                    <a href="product-details.html" class="block">
+                        <div class="h-48 bg-gray-50 rounded-xl mb-4 overflow-hidden flex items-center justify-center">
+                             <img src="images/unicorn_donut.png" alt="Unicorn Donut Special" class="object-cover h-full w-full group-hover:scale-105 transition duration-300">
+                        </div>
+                        <h3 class="font-bold text-lg line-clamp-1">Unicorn Donut Special</h3>
+                        <p class="text-xs text-gray-500 mb-2">Vanilla scented</p>
+                        <div class="flex text-yellow-400 text-xs mb-2">
+                            ★★★★☆ <span class="text-gray-400 ml-1">(92)</span>
+                        </div>
+                        <div class="flex justify-between items-center mt-3">
+                            <span class="text-xl font-bold">฿380</span>
+                        </div>
+                    </a>
+                    <button onclick="addToCart({name: 'Unicorn Donut Special', brand: 'Creamiicandy', price: 380, image: 'images/unicorn_donut.png', size: 'Standard', qty: 1})" class="absolute bottom-4 right-4 w-10 h-10 bg-brandPink text-brandDarkPink rounded-full flex items-center justify-center hover:bg-brandDarkPink hover:text-white transition shadow-sm">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"></path></svg>
+                    </button>
+                </div>xt-brandDarkPink rounded-full flex items-center justify-center hover:bg-brandDarkPink hover:text-white transition shadow-sm">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"></path></svg>
+                    </button>
+                </div>
+
+            </div>
+
+            <!-- Pagination -->
+            <div class="flex justify-center mt-12 space-x-2">
+                <button onclick="scrollToTop()" class="w-10 h-10 flex items-center justify-center rounded-full border text-gray-500 hover:bg-gray-50 transition"><svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path></svg></button>
+                <button onclick="scrollToTop()" class="w-10 h-10 flex items-center justify-center rounded-full bg-brandDarkPink text-white font-medium hover:opacity-90 transition">1</button>
+                <button onclick="scrollToTop()" class="w-10 h-10 flex items-center justify-center rounded-full border text-gray-600 hover:bg-gray-50 font-medium transition">2</button>
+                <button onclick="scrollToTop()" class="w-10 h-10 flex items-center justify-center rounded-full border text-gray-600 hover:bg-gray-50 font-medium transition">3</button>
+                <button onclick="scrollToTop()" class="w-10 h-10 flex items-center justify-center rounded-full border text-gray-500 hover:bg-gray-50 transition"><svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg></button>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-[#F6E2C3] pt-12 pb-6 mt-12">
+        <div class="container mx-auto px-6">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8 mb-8">
+                <div class="col-span-1 md:col-span-1">
+                    <h3 class="text-xl font-bold mb-4 text-brandBrown">สกุชชี่ Boutique</h3>
+                    <p class="text-sm text-brandBrown/80 mb-4">แหล่งรวมสกุชชี่พรีเมียมจากแบรนด์ดังระดับโลก ส่งตรงความนุ่มนิ่มถึงมือคุณ ด้วยใจรักในศิลปะแห่งการสัมผัส</p>
+                </div>
+                <div>
+                    <h4 class="font-bold mb-4 text-sm tracking-wider text-brandBrown">Store Info</h4>
+                    <ul class="space-y-2 text-sm text-brandBrown/80">
+                        <li><a href="#" class="hover:text-brandBrown">About Us</a></li>
+                        <li><a href="#" class="hover:text-brandBrown">Contact</a></li>
+                        <li><a href="#" class="hover:text-brandBrown">Locations</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="font-bold mb-4 text-sm tracking-wider text-brandBrown">Quick Links</h4>
+                    <ul class="space-y-2 text-sm text-brandBrown/80">
+                        <li><a href="products.html?brand=ibloom" class="hover:text-brandBrown">iBloom</a></li>
+                        <li><a href="punimaru.html" class="hover:text-brandBrown">Puni Maru</a></li>
+                        <li><a href="creamiicandy.html" class="hover:text-brandBrown">Creamiicandy</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="font-bold mb-4 text-sm tracking-wider text-brandBrown">Help</h4>
+                    <ul class="space-y-2 text-sm text-brandBrown/80">
+                        <li><a href="#" class="hover:text-brandBrown">Shipping</a></li>
+                        <li><a href="#" class="hover:text-brandBrown">Returns</a></li>
+                        <li><a href="#" class="hover:text-brandBrown">FAQ</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="text-center text-sm text-brandBrown/60 border-t border-brandBrown/20 pt-6">
+                <p>&copy; 2024 สกุชชี่ Boutique. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Cart & Filter JavaScript -->
+    <script src="cart-system.js"></script>
+    <script>
+        let activeCategory = 'all';
+
+        function scrollToTop() {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function handleBrandChange(checkbox) {
+            const allCb = document.getElementById('cb-all');
+            const brandCbs = document.querySelectorAll('.brand-checkbox:not(#cb-all)');
+
+            if (checkbox.value === 'all' && checkbox.checked) {
+                brandCbs.forEach(cb => cb.checked = false);
+            } else if (checkbox.checked) {
+                allCb.checked = false;
+            }
+
+            // If none checked, check all
+            const anyChecked = Array.from(brandCbs).some(cb => cb.checked);
+            if (!anyChecked && !allCb.checked) {
+                allCb.checked = true;
+            }
+
+            filterProducts();
+        }
+
+        function updatePriceFilter(val) {
+            document.getElementById('price-display').innerText = 'สูงสุด ฿' + parseInt(val).toLocaleString();
+            filterProducts();
+        }
+
+        function toggleCategoryFilter(btn, cat) {
+            document.querySelectorAll('.cat-filter-btn').forEach(b => {
+                b.className = 'cat-filter-btn px-3 py-1 bg-gray-100 text-gray-600 rounded-full text-sm hover:bg-brandPink hover:text-brandDarkPink transition';
+            });
+            btn.className = 'cat-filter-btn px-3 py-1 bg-brandDarkPink text-white rounded-full text-sm transition';
+            activeCategory = cat;
+            filterProducts();
+        }
+
+        function filterProducts() {
+            const allCb = document.getElementById('cb-all');
+            const selectedBrands = Array.from(document.querySelectorAll('.brand-checkbox:not(#cb-all):checked')).map(cb => cb.value);
+            const maxPrice = parseInt(document.getElementById('price-range').value);
+            const searchQuery = document.getElementById('search-input').value.toLowerCase().trim();
+
+            const cards = document.querySelectorAll('.product-card');
+            let visibleCount = 0;
+
+            cards.forEach(card => {
+                const brand = card.dataset.brand;
+                const price = parseInt(card.dataset.price);
+                const name = card.dataset.name.toLowerCase();
+                const category = card.dataset.category;
+
+                // Brand Match
+                const brandMatch = allCb.checked || selectedBrands.includes(brand);
+
+                // Price Match
+                const priceMatch = price <= maxPrice;
+
+                // Category Match
+                const categoryMatch = (activeCategory === 'all') || category.includes(activeCategory);
+
+                // Search Match
+                const searchMatch = !searchQuery || name.includes(searchQuery);
+
+                if (brandMatch && priceMatch && categoryMatch && searchMatch) {
+                    card.style.display = 'block';
+                    visibleCount++;
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+
+            // Update UI count
+            document.getElementById('product-count-text').innerText = `แสดงสินค้า ${visibleCount} รายการ`;
+            
+            // Title update
+            const pageTitle = document.getElementById('page-title');
+            if (allCb.checked || selectedBrands.length === 0 || selectedBrands.length === 3) {
+                pageTitle.innerText = 'รายการสินค้าทั้งหมด';
+            } else {
+                const brandNames = selectedBrands.map(b => {
+                    if (b === 'ibloom') return 'iBloom';
+                    if (b === 'punimaru') return 'Puni Maru';
+                    if (b === 'creamiicandy') return 'Creamiicandy';
+                });
+                pageTitle.innerText = `รายการสินค้า: ${brandNames.join(', ')}`;
+            }
+
+            // No products state
+            const noProductsMsg = document.getElementById('no-products-msg');
+            const productContainer = document.getElementById('product-container');
+            if (visibleCount === 0) {
+                noProductsMsg.classList.remove('hidden');
+            } else {
+                noProductsMsg.classList.add('hidden');
+            }
+        }
+
+        function sortProducts() {
+            const sortBy = document.getElementById('sort-select').value;
+            const container = document.getElementById('product-container');
+            const cards = Array.from(container.querySelectorAll('.product-card'));
+
+            cards.sort((a, b) => {
+                const priceA = parseInt(a.dataset.price);
+                const priceB = parseInt(b.dataset.price);
+                const popA = parseInt(a.dataset.popularity);
+                const popB = parseInt(b.dataset.popularity);
+
+                if (sortBy === 'low-high') return priceA - priceB;
+                if (sortBy === 'high-low') return priceB - priceA;
+                return popB - popA; // Popular
+            });
+
+            cards.forEach(card => container.appendChild(card));
+        }
+
+        function resetFilters() {
+            document.getElementById('cb-all').checked = true;
+            document.querySelectorAll('.brand-checkbox:not(#cb-all)').forEach(cb => cb.checked = false);
+            document.getElementById('price-range').value = 1500;
+            document.getElementById('price-display').innerText = 'สูงสุด ฿1,500';
+            document.getElementById('search-input').value = '';
+            activeCategory = 'all';
+            document.querySelectorAll('.cat-filter-btn').forEach((b, idx) => {
+                if (idx === 0) b.className = 'cat-filter-btn px-3 py-1 bg-brandDarkPink text-white rounded-full text-sm transition';
+                else b.className = 'cat-filter-btn px-3 py-1 bg-gray-100 text-gray-600 rounded-full text-sm hover:bg-brandPink hover:text-brandDarkPink transition';
+            });
+            filterProducts();
+        }
+
+        // Initialize URL parameters check on load
+        window.addEventListener('DOMContentLoaded', () => {
+            const urlParams = new URLSearchParams(window.location.search);
+            const brandParam = urlParams.get('brand');
+            if (brandParam) {
+                const targetCb = document.getElementById(`cb-${brandParam}`);
+                if (targetCb) {
+                    document.getElementById('cb-all').checked = false;
+                    targetCb.checked = true;
+                    filterProducts();
+
+                    // Update navbar active state
+                    document.querySelectorAll('.nav-brand-link').forEach(link => {
+                        if (link.dataset.brandNav === brandParam) {
+                            link.className = 'nav-brand-link border-b-2 border-brandBrown text-brandBrown pb-1 font-semibold';
+                        }
+                    });
+                }
+            }
+        });
+    </script>
+</body>
+</html>
