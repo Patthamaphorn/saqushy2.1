@@ -1,0 +1,470 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>โปรไฟล์ผู้ใช้งาน - สกุชชี่ Boutique</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Prompt', 'sans-serif'],
+                    },
+                    colors: {
+                        brandBrown: '#5C433B',
+                        brandPink: '#F1D4D1',
+                        brandDarkPink: '#8B5A58',
+                        footerBg: '#F6E2C3',
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body { font-family: 'Prompt', sans-serif; background-color: #FAFAFA; color: #5C433B; }
+        .btn-primary { background-color: #8B5A58; color: white; }
+        .tab-btn.active {
+            background-color: #8B5A58;
+            color: white;
+            box-shadow: 0 4px 12px rgba(139, 90, 88, 0.25);
+        }
+    </style>
+</head>
+<body class="bg-[#FAFAFA]">
+
+    <!-- Navigation Bar -->
+    <nav class="bg-white py-4 shadow-sm sticky top-0 z-50">
+        <div class="container mx-auto px-6 flex justify-between items-center">
+            <a href="index.html" class="text-3xl font-bold text-brandBrown">สกุชชี่</a>
+            <div class="hidden md:flex space-x-8 font-medium">
+                <a href="index.html" class="text-gray-500 hover:text-brandBrown">หน้าแรก</a>
+                <a href="ibloom.html" class="text-gray-500 hover:text-brandBrown">iBloom</a>
+                <a href="punimaru.html" class="text-gray-500 hover:text-brandBrown">Puni Maru</a>
+                <a href="creamiicandy.html" class="text-gray-500 hover:text-brandBrown">Creamiicandy</a>
+            </div>
+            <div class="flex space-x-4 text-gray-600 items-center">
+                <div class="relative hidden md:block">
+                    <input type="text" id="nav-search" onkeydown="if(event.key==='Enter') window.location.href='products.html'" placeholder="ค้นหาสกุชชี่..." class="pl-4 pr-10 py-2 bg-gray-100 rounded-full text-sm focus:outline-none focus:ring-2 focus:ring-brandPink w-48">
+                    <button onclick="window.location.href='products.html'" class="absolute right-3 top-2.5">
+                        <svg class="w-4 h-4 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
+                    </button>
+                </div>
+                <a href="cart.html" class="relative hover:text-brandDarkPink transition">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"></path></svg>
+                    <span class="cart-badge hidden absolute -top-2 -right-2 bg-brandDarkPink text-white text-[10px] w-5 h-5 rounded-full flex items-center justify-center font-bold">0</span>
+                </a>
+                <a href="profile.html" class="text-brandDarkPink border-b-2 border-brandDarkPink pb-0.5">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path></svg>
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Container -->
+    <main class="container mx-auto px-4 md:px-6 py-8">
+        
+        <!-- Breadcrumb -->
+        <div class="text-xs text-gray-500 mb-6 flex items-center space-x-2">
+            <a href="index.html" class="hover:text-brandBrown">หน้าแรก</a>
+            <span>/</span>
+            <span class="text-brandDarkPink font-semibold">โปรไฟล์ผู้ใช้งาน</span>
+        </div>
+
+        <!-- User Banner Card -->
+        <div class="bg-gradient-to-r from-[#8B5A58] to-[#5C433B] rounded-3xl p-6 md:p-8 text-white shadow-xl mb-8 flex flex-col md:flex-row items-center justify-between gap-6">
+            <div class="flex items-center space-x-5">
+                <div class="relative">
+                    <img id="profile-avatar" src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&q=80&w=200" alt="Avatar" class="w-24 h-24 rounded-full object-cover border-4 border-white/30 shadow-md">
+                    <span class="absolute bottom-0 right-0 bg-amber-400 text-brandBrown text-[10px] font-bold px-2 py-0.5 rounded-full border border-white">VIP</span>
+                </div>
+                <div>
+                    <h1 id="banner-name" class="text-2xl md:text-3xl font-bold">คุณลูกค้า สกุชชี่</h1>
+                    <p id="banner-email" class="text-sm text-pink-100 opacity-90 mt-1">customer@example.com</p>
+                    <div class="flex flex-wrap gap-2 mt-3">
+                        <span class="bg-white/20 text-xs px-3 py-1 rounded-full font-medium backdrop-blur-sm">🌟 VIP Gold Member</span>
+                        <span class="bg-amber-400/90 text-brandBrown text-xs px-3 py-1 rounded-full font-semibold">🪙 540 แต้มสะสม</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="flex md:flex-col gap-4 text-center border-t md:border-t-0 md:border-l border-white/20 pt-4 md:pt-0 md:pl-8 w-full md:w-auto justify-around">
+                <div onclick="switchTab('orders')" class="cursor-pointer hover:bg-white/10 p-2 rounded-xl transition" title="ดูประวัติการสั่งซื้อ">
+                    <span class="text-2xl font-bold">3</span>
+                    <p class="text-xs text-pink-100 opacity-80">คำสั่งซื้อทั้งหมด</p>
+                </div>
+                <div onclick="switchTab('wishlist')" class="cursor-pointer hover:bg-white/10 p-2 rounded-xl transition" title="ดูสินค้าใน Wishlist">
+                    <span class="text-2xl font-bold">2</span>
+                    <p class="text-xs text-pink-100 opacity-80">สินค้าใน Wishlist</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Layout Grid: Sidebar Navigation & Content -->
+        <div class="grid grid-cols-1 lg:grid-cols-4 gap-8">
+            
+            <!-- Tab Navigation Sidebar -->
+            <div class="lg:col-span-1">
+                <div class="bg-white rounded-3xl p-4 shadow-sm border border-gray-100 space-y-2 sticky top-24">
+                    <button onclick="switchTab('profile-info')" id="tab-btn-profile-info" class="tab-btn active w-full flex items-center space-x-3 px-4 py-3 rounded-2xl font-medium text-gray-700 hover:bg-pink-50 transition text-left">
+                        <svg class="w-5 h-5 text-current" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path></svg>
+                        <span>ข้อมูลส่วนตัว & ที่อยู่</span>
+                    </button>
+                    <button onclick="switchTab('orders')" id="tab-btn-orders" class="tab-btn w-full flex items-center space-x-3 px-4 py-3 rounded-2xl font-medium text-gray-700 hover:bg-pink-50 transition text-left">
+                        <svg class="w-5 h-5 text-current" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"></path></svg>
+                        <span>ประวัติการสั่งซื้อ</span>
+                    </button>
+                    <button onclick="switchTab('wishlist')" id="tab-btn-wishlist" class="tab-btn w-full flex items-center space-x-3 px-4 py-3 rounded-2xl font-medium text-gray-700 hover:bg-pink-50 transition text-left">
+                        <svg class="w-5 h-5 text-current" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"></path></svg>
+                        <span>สินค้าที่ชอบ (Wishlist)</span>
+                    </button>
+                    <button onclick="switchTab('coupons')" id="tab-btn-coupons" class="tab-btn w-full flex items-center space-x-3 px-4 py-3 rounded-2xl font-medium text-gray-700 hover:bg-pink-50 transition text-left">
+                        <svg class="w-5 h-5 text-current" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 5v2m0 4v2m0 4v2M5 5a2 2 0 00-2 2v3a2 2 0 110 4v3a2 2 0 002 2h14a2 2 0 002-2v-3a2 2 0 110-4V7a2 2 0 00-2-2H5z"></path></svg>
+                        <span>คูปองและสิทธิพิเศษ</span>
+                    </button>
+                    <div class="border-t border-gray-100 pt-2 mt-2">
+                        <button onclick="logoutUser()" class="w-full flex items-center space-x-3 px-4 py-3 rounded-2xl font-medium text-red-600 hover:bg-red-50 transition text-left">
+                            <svg class="w-5 h-5 text-current" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"></path></svg>
+                            <span>ออกจากระบบ (Logout)</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Tab Contents -->
+            <div class="lg:col-span-3">
+                
+                <!-- TAB 1: Profile Info Form -->
+                <div id="tab-profile-info" class="tab-content bg-white rounded-3xl p-6 md:p-8 shadow-sm border border-gray-100">
+                    <h2 class="text-xl font-bold text-brandBrown mb-6 flex items-center">
+                        <svg class="w-6 h-6 mr-2 text-brandDarkPink" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"></path></svg>
+                        แก้ไขข้อมูลส่วนตัวและที่อยู่จัดส่ง
+                    </h2>
+                    
+                    <form id="profile-form" onsubmit="saveProfile(event)" class="space-y-6">
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-2">ชื่อ-นามสกุล</label>
+                                <input type="text" id="input-fullname" value="คุณลูกค้า สกุชชี่" required class="w-full px-4 py-2.5 rounded-2xl border border-gray-200 focus:ring-2 focus:ring-brandDarkPink outline-none text-sm">
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-2">เบอร์โทรศัพท์</label>
+                                <input type="tel" id="input-phone" value="081-234-5678" required class="w-full px-4 py-2.5 rounded-2xl border border-gray-200 focus:ring-2 focus:ring-brandDarkPink outline-none text-sm">
+                            </div>
+                        </div>
+
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">อีเมล (Email)</label>
+                            <input type="email" id="input-email" value="customer@example.com" required class="w-full px-4 py-2.5 rounded-2xl border border-gray-200 focus:ring-2 focus:ring-brandDarkPink outline-none text-sm">
+                        </div>
+
+                        <div class="border-t border-gray-100 pt-6">
+                            <h3 class="font-bold text-gray-800 mb-4 text-sm uppercase tracking-wider">ที่อยู่สำหรับจัดส่งสินค้า</h3>
+                            
+                            <div class="space-y-4">
+                                <div>
+                                    <label class="block text-sm font-medium text-gray-700 mb-2">ที่อยู่ (บ้านเลขที่, อาคาร, ซอย, ถนน)</label>
+                                    <input type="text" id="input-address" value="99/9 แขวงคลองเตย เขตคลองเตย" required class="w-full px-4 py-2.5 rounded-2xl border border-gray-200 focus:ring-2 focus:ring-brandDarkPink outline-none text-sm">
+                                </div>
+                                
+                                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                    <div>
+                                        <label class="block text-sm font-medium text-gray-700 mb-2">จังหวัด</label>
+                                        <input type="text" id="input-province" value="กรุงเทพมหานคร" required class="w-full px-4 py-2.5 rounded-2xl border border-gray-200 focus:ring-2 focus:ring-brandDarkPink outline-none text-sm">
+                                    </div>
+                                    <div>
+                                        <label class="block text-sm font-medium text-gray-700 mb-2">รหัสไปรษณีย์</label>
+                                        <input type="text" id="input-zipcode" value="10110" required class="w-full px-4 py-2.5 rounded-2xl border border-gray-200 focus:ring-2 focus:ring-brandDarkPink outline-none text-sm">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="flex justify-end pt-4">
+                            <button type="submit" class="bg-brandDarkPink text-white px-8 py-3 rounded-full font-medium hover:bg-opacity-90 transition shadow-lg flex items-center">
+                                <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+                                บันทึกข้อมูล
+                            </button>
+                        </div>
+                    </form>
+                </div>
+
+                <!-- TAB 2: Order History -->
+                <div id="tab-orders" class="tab-content hidden space-y-6">
+                    <div class="bg-white rounded-3xl p-6 md:p-8 shadow-sm border border-gray-100">
+                        <h2 class="text-xl font-bold text-brandBrown mb-6 flex items-center justify-between">
+                            <span>ประวัติคำสั่งซื้อทั้งหมด</span>
+                            <span class="text-xs font-normal text-gray-500">แสดง 2 รายการล่าสุด</span>
+                        </h2>
+
+                        <!-- Order Card 1 -->
+                        <div class="border border-gray-100 rounded-2xl p-5 mb-4 hover:shadow-md transition bg-gray-50/50">
+                            <div class="flex flex-wrap justify-between items-center border-b pb-4 mb-4 gap-2">
+                                <div>
+                                    <span class="text-xs text-gray-400">เลขที่ออเดอร์</span>
+                                    <h4 class="font-bold text-gray-800">#SQ-88992</h4>
+                                    <span class="text-xs text-gray-500">01/09/2026 10:15 น.</span>
+                                </div>
+                                <div class="text-right">
+                                    <span class="bg-amber-100 text-amber-800 text-xs font-semibold px-3 py-1 rounded-full">🚚 กำลังเตรียมจัดส่ง</span>
+                                    <p class="font-bold text-brandDarkPink text-lg mt-1">฿1,470.00</p>
+                                </div>
+                            </div>
+
+                            <!-- Items -->
+                            <div class="space-y-3">
+                                <a href="product-details.html" class="flex items-center space-x-4 p-2 rounded-xl hover:bg-pink-50/60 transition group cursor-pointer">
+                                    <img src="images/peach.png" alt="Peach Squishy" class="w-14 h-14 rounded-xl object-cover border group-hover:scale-105 transition bg-gray-50">
+                                    <div class="flex-1">
+                                        <h5 class="font-semibold text-sm group-hover:text-brandDarkPink transition">I Love Peach (Jumbo) - iBloom</h5>
+                                        <p class="text-xs text-gray-500">ขนาด: Jumbo | จำนวน: 1</p>
+                                    </div>
+                                    <span class="font-semibold text-sm">฿1,200</span>
+                                </a>
+                                <a href="product-details.html" class="flex items-center space-x-4 p-2 rounded-xl hover:bg-pink-50/60 transition group cursor-pointer">
+                                    <img src="images/milk_carton.png" alt="Milk Carton Kawaii" class="w-14 h-14 rounded-xl object-cover border group-hover:scale-105 transition bg-gray-50">
+                                    <div class="flex-1">
+                                        <h5 class="font-semibold text-sm group-hover:text-brandDarkPink transition">Milk Carton Kawaii - Creamiicandy</h5>
+                                        <p class="text-xs text-gray-500">ขนาด: Mini | จำนวน: 1</p>
+                                    </div>
+                                    <span class="font-semibold text-sm">฿320</span>
+                                </a>
+                            </div>
+
+                            <!-- Action -->
+                            <div class="mt-4 border-t pt-3 flex justify-between items-center">
+                                <span class="text-xs text-gray-500">การชำระเงิน: สแกน QR Code (PromptPay)</span>
+                                <a href="receipt.html" class="bg-gray-100 text-brandBrown hover:bg-brandPink hover:text-brandDarkPink text-xs font-semibold px-4 py-2 rounded-full transition flex items-center">
+                                    <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg>
+                                    ดูใบเสร็จรับเงิน
+                                </a>
+                            </div>
+                        </div>
+
+                        <!-- Order Card 2 -->
+                        <div class="border border-gray-100 rounded-2xl p-5 mb-4 hover:shadow-md transition bg-gray-50/50">
+                            <div class="flex flex-wrap justify-between items-center border-b pb-4 mb-4 gap-2">
+                                <div>
+                                    <span class="text-xs text-gray-400">เลขที่ออเดอร์</span>
+                                    <h4 class="font-bold text-gray-800">#SQ-88510</h4>
+                                    <span class="text-xs text-gray-500">15/08/2026 14:30 น.</span>
+                                </div>
+                                <div class="text-right">
+                                    <span class="bg-green-100 text-green-800 text-xs font-semibold px-3 py-1 rounded-full">✅ จัดส่งสำเร็จแล้ว</span>
+                                    <p class="font-bold text-brandDarkPink text-lg mt-1">฿890.00</p>
+                                </div>
+                            </div>
+
+                            <a href="product-details.html" class="flex items-center space-x-4 p-2 rounded-xl hover:bg-pink-50/60 transition group cursor-pointer">
+                                <img src="images/marshmallow_bear.png" alt="Marshmallow Bear" class="w-14 h-14 rounded-xl object-cover border group-hover:scale-105 transition bg-gray-50">
+                                <div class="flex-1">
+                                    <h5 class="font-semibold text-sm group-hover:text-brandDarkPink transition">Marshmallow Bear - Puni Maru</h5>
+                                    <p class="text-xs text-gray-500">ขนาด: Medium | จำนวน: 1</p>
+                                </div>
+                                <span class="font-semibold text-sm">฿890</span>
+                            </a>
+
+                            <div class="mt-4 border-t pt-3 flex justify-between items-center">
+                                <span class="text-xs text-gray-500">พัสดุ EMS: TH123456789TH</span>
+                                <a href="receipt.html" class="bg-gray-100 text-brandBrown hover:bg-brandPink text-xs font-semibold px-4 py-2 rounded-full transition">ดูใบเสร็จรับเงิน</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- TAB 3: Wishlist -->
+                <div id="tab-wishlist" class="tab-content hidden">
+                    <div class="bg-white rounded-3xl p-6 md:p-8 shadow-sm border border-gray-100">
+                        <h2 class="text-xl font-bold text-brandBrown mb-6 flex items-center">
+                            <svg class="w-6 h-6 mr-2 text-red-500" fill="currentColor" viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
+                            รายการสินค้าที่ชื่นชอบ (Wishlist)
+                        </h2>
+
+                        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+                            
+                            <!-- Wishlist Item 1 -->
+                            <div class="border border-gray-100 rounded-2xl p-4 flex flex-col justify-between hover:shadow-lg transition group">
+                                <div>
+                                    <a href="product-details.html" class="block">
+                                        <div class="relative mb-3 overflow-hidden rounded-xl bg-gray-50">
+                                            <img src="images/peach.png" alt="I Love Peach (Jumbo)" class="w-full h-40 object-cover group-hover:scale-105 transition duration-300">
+                                            <a href="ibloom.html" class="absolute top-2 left-2 bg-brandDarkPink text-white text-[10px] px-2 py-0.5 rounded-full font-bold hover:bg-opacity-90 transition">iBloom</a>
+                                        </div>
+                                        <h4 class="font-bold text-gray-800 text-sm group-hover:text-brandDarkPink transition">I Love Peach (Jumbo)</h4>
+                                        <p class="text-xs text-gray-500 mb-2">กลิ่นหอมพีช สโลว์นุ่มฟู</p>
+                                        <p class="text-brandDarkPink font-bold text-base mb-4">฿1,200</p>
+                                    </a>
+                                </div>
+                                <button onclick="addToCart({id:'ibloom-peach', name:'I Love Peach (Jumbo)', brand:'iBloom', price:1200, image:'images/peach.png'})" class="w-full bg-brandDarkPink text-white py-2 rounded-xl text-xs font-semibold hover:bg-opacity-90 transition flex items-center justify-center">
+                                    <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"></path></svg>
+                                    ใส่ตะกร้า
+                                </button>
+                            </div>
+
+                            <!-- Wishlist Item 2 -->
+                            <div class="border border-gray-100 rounded-2xl p-4 flex flex-col justify-between hover:shadow-lg transition group">
+                                <div>
+                                    <a href="product-details.html" class="block">
+                                        <div class="relative mb-3 overflow-hidden rounded-xl bg-gray-50">
+                                            <img src="images/croissant.png" alt="Bread Doll Set" class="w-full h-40 object-cover group-hover:scale-105 transition duration-300">
+                                            <a href="punimaru.html" class="absolute top-2 left-2 bg-[#5C433B] text-white text-[10px] px-2 py-0.5 rounded-full font-bold hover:bg-opacity-90 transition">Puni Maru</a>
+                                        </div>
+                                        <h4 class="font-bold text-gray-800 text-sm group-hover:text-brandDarkPink transition">Bread Doll Set</h4>
+                                        <p class="text-xs text-gray-500 mb-2">กลิ่นเบเกอรี่อบใหม่</p>
+                                        <p class="text-brandDarkPink font-bold text-base mb-4">฿450</p>
+                                    </a>
+                                </div>
+                                <button onclick="addToCart({id:'punimaru-croissant', name:'Bread Doll Set', brand:'Puni Maru', price:450, image:'images/croissant.png'})" class="w-full bg-brandDarkPink text-white py-2 rounded-xl text-xs font-semibold hover:bg-opacity-90 transition flex items-center justify-center">
+                                    <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"></path></svg>
+                                    ใส่ตะกร้า
+                                </button>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+                <!-- TAB 4: Coupons -->
+                <div id="tab-coupons" class="tab-content hidden">
+                    <div class="bg-white rounded-3xl p-6 md:p-8 shadow-sm border border-gray-100">
+                        <h2 class="text-xl font-bold text-brandBrown mb-6 flex items-center">
+                            <svg class="w-6 h-6 mr-2 text-amber-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 5v2m0 4v2m0 4v2M5 5a2 2 0 00-2 2v3a2 2 0 110 4v3a2 2 0 002 2h14a2 2 0 002-2v-3a2 2 0 110-4V7a2 2 0 00-2-2H5z"></path></svg>
+                            คูปองส่วนลดและสิทธิพิเศษ
+                        </h2>
+
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            
+                            <!-- Coupon 1 -->
+                            <div class="border-2 border-dashed border-brandDarkPink/40 bg-pink-50/50 rounded-2xl p-5 flex items-center justify-between">
+                                <div>
+                                    <span class="bg-brandDarkPink text-white text-[10px] font-bold px-2 py-0.5 rounded-full">โค้ดส่วนลด 10%</span>
+                                    <h4 class="font-bold text-brandBrown text-lg mt-1">SQUISHY10</h4>
+                                    <p class="text-xs text-gray-500">ลด 10% สำหรับการสั่งซื้อขั้นต่ำ ฿500</p>
+                                    <p class="text-[10px] text-gray-400 mt-2">หมดอายุ: 30/09/2026</p>
+                                </div>
+                                <button onclick="copyCoupon('SQUISHY10')" class="bg-brandDarkPink text-white text-xs px-4 py-2 rounded-full font-semibold hover:bg-opacity-90 transition">
+                                    คัดลอก
+                                </button>
+                            </div>
+
+                            <!-- Coupon 2 -->
+                            <div class="border-2 border-dashed border-amber-400 bg-amber-50/40 rounded-2xl p-5 flex items-center justify-between">
+                                <div>
+                                    <span class="bg-amber-500 text-white text-[10px] font-bold px-2 py-0.5 rounded-full">จัดส่งฟรี</span>
+                                    <h4 class="font-bold text-brandBrown text-lg mt-1">FREESHIP</h4>
+                                    <p class="text-xs text-gray-500">ฟรีค่าจัดส่ง ฿50 เมื่อสั่งซื้อ ฿800 ขึ้นไป</p>
+                                    <p class="text-[10px] text-gray-400 mt-2">หมดอายุ: 15/10/2026</p>
+                                </div>
+                                <button onclick="copyCoupon('FREESHIP')" class="bg-amber-500 text-white text-xs px-4 py-2 rounded-full font-semibold hover:bg-opacity-90 transition">
+                                    คัดลอก
+                                </button>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-footerBg pt-12 pb-6 mt-16">
+        <div class="container mx-auto px-6">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8 mb-8 border-b border-brandBrown/20 pb-8">
+                <div>
+                    <h3 class="text-xl font-bold mb-4 text-brandBrown">สกุชชี่ Boutique</h3>
+                    <p class="text-sm text-brandBrown/80">สวรรค์ของคนรักความนุ่มและสโลว์ นำเข้าสกุชชี่แท้จากแบรนด์ดังทั่วโลก</p>
+                </div>
+                <div>
+                    <h4 class="font-bold mb-4 text-sm tracking-wider uppercase text-brandBrown">Store Info</h4>
+                    <ul class="space-y-2 text-sm text-brandBrown/80">
+                        <li><a href="#" class="hover:text-brandBrown">About Us</a></li>
+                        <li><a href="#" class="hover:text-brandBrown">Store Location</a></li>
+                        <li><a href="#" class="hover:text-brandBrown">Contact Us</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="font-bold mb-4 text-sm tracking-wider uppercase text-brandBrown">Quick Links</h4>
+                    <ul class="space-y-2 text-sm text-brandBrown/80">
+                        <li><a href="#" class="hover:text-brandBrown">Track Order</a></li>
+                        <li><a href="#" class="hover:text-brandBrown">FAQs</a></li>
+                        <li><a href="#" class="hover:text-brandBrown">Refund Policy</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="font-bold mb-4 text-sm tracking-wider uppercase text-brandBrown">Social Media</h4>
+                    <div class="flex space-x-4">
+                        <a href="#" class="w-8 h-8 rounded-full border border-brandBrown flex items-center justify-center hover:bg-brandBrown hover:text-white transition"><svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M24 4.557c-.883.392-1.832.656-2.828.775 1.017-.609 1.798-1.574 2.165-2.724-.951.564-2.005.974-3.127 1.195-.897-.957-2.178-1.555-3.594-1.555-3.179 0-5.515 2.966-4.797 6.045-4.091-.205-7.719-2.165-10.148-5.144-1.29 2.213-.669 5.108 1.523 6.574-.806-.026-1.566-.247-2.229-.616-.054 2.281 1.581 4.415 3.949 4.89-.693.188-1.452.232-2.224.084.626 1.956 2.444 3.379 4.6 3.419-2.07 1.623-4.678 2.348-7.29 2.04 2.179 1.397 4.768 2.212 7.548 2.212 9.142 0 14.307-7.721 13.995-14.646.962-.695 1.797-1.562 2.457-2.549z"/></svg></a>
+                    </div>
+                </div>
+            </div>
+            <div class="text-center text-sm text-brandBrown/60 flex flex-col md:flex-row justify-between items-center">
+                <p>&copy; 2024 สกุชชี่ Boutique. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Cart & Auth System Scripts -->
+    <script src="cart-system.js"></script>
+    <script src="auth-system.js"></script>
+    <script src="mobile-nav.js"></script>
+    <script>
+        function switchTab(tabId) {
+            document.querySelectorAll('.tab-content').forEach(el => el.classList.add('hidden'));
+            document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+
+            document.getElementById(`tab-${tabId}`).classList.remove('hidden');
+            document.getElementById(`tab-btn-${tabId}`).classList.add('active');
+        }
+
+        function saveProfile(event) {
+            event.preventDefault();
+            const profileData = {
+                fullname: document.getElementById('input-fullname').value,
+                phone: document.getElementById('input-phone').value,
+                email: document.getElementById('input-email').value,
+                address: document.getElementById('input-address').value,
+                province: document.getElementById('input-province').value,
+                zipcode: document.getElementById('input-zipcode').value,
+            };
+
+            localStorage.setItem('squishy_user_profile', JSON.stringify(profileData));
+            document.getElementById('banner-name').innerText = profileData.fullname;
+            document.getElementById('banner-email').innerText = profileData.email;
+
+            showToast('บันทึกข้อมูลส่วนตัวเรียบร้อยแล้ว!');
+        }
+
+        function loadProfile() {
+            const saved = localStorage.getItem('squishy_user_profile');
+            if (saved) {
+                const data = JSON.parse(saved);
+                if (data.fullname) {
+                    document.getElementById('input-fullname').value = data.fullname;
+                    document.getElementById('banner-name').innerText = data.fullname;
+                }
+                if (data.phone) document.getElementById('input-phone').value = data.phone;
+                if (data.email) {
+                    document.getElementById('input-email').value = data.email;
+                    document.getElementById('banner-email').innerText = data.email;
+                }
+                if (data.address) document.getElementById('input-address').value = data.address;
+                if (data.province) document.getElementById('input-province').value = data.province;
+                if (data.zipcode) document.getElementById('input-zipcode').value = data.zipcode;
+            }
+        }
+
+        function copyCoupon(code) {
+            navigator.clipboard.writeText(code);
+            showToast(`คัดลอกโค้ด "${code}" สำเร็จ!`);
+        }
+
+        document.addEventListener('DOMContentLoaded', loadProfile);
+    </script>
+</body>
+</html>
